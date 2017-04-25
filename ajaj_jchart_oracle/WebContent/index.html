@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jChartFx 예제</title>
+<link rel="stylesheet" type="text/css" href="css/chartfx.css" />
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/jchartfx.system.js"></script>
+<script type="text/javascript" src="js/jchartfx.coreBasic.js"></script>
+<script type="text/javascript" src="js/jchartfx.animation.js"></script>
+
+<style type="text/css">
+body { font-size: 12px; }
+#ChartDiv { width: 800px; height: 400px; }
+</style> 
+</head>
+
+<body>
+
+<h3>jChartFx 예제</h3>
+<div id="ChartDiv"></div>
+
+<script type="text/javascript" language="javascript">
+$(function() {
+	$.ajax({
+		url : "read",
+		type : "get",
+		contentType : "application/json",
+		dataType : "json",
+		success : function(result) {
+			var chart = new cfx.Chart();
+			chart.getAnimations().getLoad().setEnabled(true);
+			chart.setGallery(cfx.Gallery.Bar);			
+			chart.setDataSource(result);			
+			chart.getSeries().getItem(0).setText("평균 급여(단위 : $)");
+			var div = document.getElementById("ChartDiv");
+			chart.create(div);
+		},
+		error : function(xhr, txt, err) {
+			alert("error connecting to data : " + txt);
+		}
+	});
+});
+</script>
+</body>
+</html>
